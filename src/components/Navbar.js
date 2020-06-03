@@ -22,7 +22,6 @@ class Navbar extends React.Component {
     this.props.setAuthedUser(null);
   };
   handleClick = (e) => {
-    console.log("click ", e);
     this.setState({
       current: e.key,
     });
