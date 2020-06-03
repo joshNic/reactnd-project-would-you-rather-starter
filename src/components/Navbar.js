@@ -1,17 +1,8 @@
 import React from "react";
-// import { Menu } from "antd";
 
 import {Link} from 'react-router-dom'
 import { setAuthedUser } from '../actions/authedUser';
 import { connect } from 'react-redux';
-// import Log from '../images/user1.png'
-// import {
-//   MailOutlined,
-//   AppstoreOutlined,
-//   SettingOutlined,
-// } from "@ant-design/icons";
-
-// const { SubMenu } = Menu;
 
 class Navbar extends React.Component {
   state = {
@@ -28,17 +19,8 @@ class Navbar extends React.Component {
   };
   render() {
     const { authedUser, users } = this.props;
-    // const lk = users[authedUser].avatarURL
     return (
-      //         <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-      //     <Menu.Item key="mail" icon={<MailOutlined render={()=><p>joshua</p>}/>}>
-      //       Navigation One
-
-      //     </Menu.Item>
-      //     <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
-      //       Navigation Two
-      //     </Menu.Item>
-      //   </Menu>
+     
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav mr-auto">

@@ -10,15 +10,10 @@ class Login extends React.Component {
   handleChange = (event) => this.setState({ value: event.target.value });
 
   handleSubmit = (event) => {
-    // alert("Your favorite flavor is: " + this.state.value);
     event.preventDefault();
     const {setAuthedUser } = this.props;
     const authedUser = this.state.value;
-
-    // new Promise((res, rej) => {
-    //     setTimeout(() => res(), 500);
-    //   }).then(() => 
-      setAuthedUser(authedUser);
+    setAuthedUser(authedUser);
 
   };
   render() {
