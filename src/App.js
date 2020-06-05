@@ -3,9 +3,10 @@ import "./App.css";
 import Home from "./components/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Page from "./components/Page";
-import Question from "./components/Question";
+import CreateQuestion from "./components/CreateQuestion";
 import LeaderBoard from "./components/LeaderBoard";
 import Login from "./components/Login";
+import QuestionDetails from "./components/QuestionDetails"
 
 import { handleInitialData } from "./actions/shared";
 import { connect } from "react-redux";
@@ -26,9 +27,9 @@ class App extends React.Component {
           <Switch>
             <Page>
               <Route exact path="/" component={Home} />
-              <Route  exact path="/add" component={Question} />
+              <Route  exact path="/add" component={CreateQuestion} />
               <Route exact path="/leaderboard" component={LeaderBoard} />
-              {/* <Route exact path="/not_found" component={NotFound} /> */}
+              <Route exact path="/questions/:question_id" component={QuestionDetails} />
             </Page>
           </Switch>
         )}

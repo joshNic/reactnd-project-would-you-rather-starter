@@ -22,10 +22,6 @@ class Login extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="exampleSelect2">Select User To Login</label>
-          {/* <img src={Log} style={{width:"30px",height:"30px"}}/> */}
-          {/* <div style={{backgroundImage:`url("${Log}")`,width:"30px",height:"30px"}}>
-
-          </div> */}
           <select
             className="form-control"
             value={this.state.value}

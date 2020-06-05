@@ -1,34 +1,27 @@
-import React from "react";
+import React from 'react'
 import { connect } from "react-redux";
 import {withRouter} from 'react-router-dom'
 
 import { handleSaveQuestionAnswer } from '../actions/users';
-import NotFound from './NotFound'
-import PollResult from './PollResult'
 
-class AnswerPoll extends React.Component {
-  state = {
-    value: "optionOne",
-  };
-  handleChange = (event) => {
-   
-    this.setState({ value: event.target.value });
-  };
-  handleSubmit =async(event) => {
-    event.preventDefault();
-    const{authedUser, question,handleSaveQuestionAnswer} = this.props
-    await handleSaveQuestionAnswer(authedUser, question.id, this.state.value);
-    this.props.history.push(`/questions/${question.id}`);
-  };
-  render() {
-    console.log(this.props,"this is propss")
-      const{question,users} = this.props
-    return (
-      <>
-      {question===undefined?<NotFound/>:(
-        <>
-        {this.props.ty==="unanswered"?(
-          <div
+class UnAnsweredQuestion extends React.Component{
+    state = {
+        value: "optionOne",
+      };
+      handleChange = (event) => {
+       
+        this.setState({ value: event.target.value });
+      };
+      handleSubmit =(event) => {
+        event.preventDefault();
+        const{authedUser, question,handleSaveQuestionAnswer} = this.props
+        handleSaveQuestionAnswer(authedUser, question.id, this.state.value);
+        this.props.history.push(`/questions/${question.id}`);
+      };
+    render(){
+        const{question,users} = this.props
+        return(
+            <div
           className="card text-white bg-primary mb-3"
           style={{ width: "30em" }}
         >
@@ -75,38 +68,18 @@ class AnswerPoll extends React.Component {
             </div>
           </div>
         </div>
-        ):(
-          <PollResult/>
         )
-      }
-        
-      </>
-      )}
-      
-      </>
-    );
-  }
+    }
 }
+
 function mapStateToProps({ authedUser,questions,users }, { match }) {
     const { question_id } = match.params;
     const question = questions[question_id];
-    const user = users[authedUser];
-    let ty
-
-    if(Object.keys(user.answers).includes(question.id)){
-      ty="answered"
-    }else{
-      ty="unanswered"
-    }
-  
     return {
       authedUser,
       question,
       users,
-      ty
     };
   }
-  
 
-
-export default withRouter(connect(mapStateToProps,{ handleSaveQuestionAnswer })(AnswerPoll));
+export default withRouter(connect(mapStateToProps,{ handleSaveQuestionAnswer })(UnAnsweredQuestion))

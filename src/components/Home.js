@@ -3,7 +3,7 @@ import { Tabs } from 'antd';
 
 import { connect } from 'react-redux';
 
-import Card from './Card'
+import QuestionCard from './QuestionCard'
 
 
 class Home extends React.Component {
@@ -13,24 +13,25 @@ class Home extends React.Component {
     )
   render() {
     const { TabPane } = Tabs;
-    const { userQuestionData } = this.props;
+    console.log(this.props)
+    const { answeredQuestionId, unAnsweredQuestionId} = this.props;
     return (
         <Tabs defaultActiveKey="1" onChange={this.callback}>
         <TabPane tab="Unanswered Questions" key="1">
-          {userQuestionData.answered.map(question=>(
-            <Card
-            key={question.id}
-            question_id={question.id}
+          {unAnsweredQuestionId.map(question_id=>(
+            <QuestionCard
+            key={question_id}
+            question_id={question_id}
             type={'answered'}
             />
           ))}
           
         </TabPane>
         <TabPane tab="Answered Questions" key="2">
-        {userQuestionData.unanswered.map(question=>(
-            <Card
-            key={question.id}
-            question_id={question.id}
+        {answeredQuestionId.map(question_id=>(
+            <QuestionCard
+            key={question_id}
+            question_id={question_id}
             type={'unanswered'}
             />
           ))}
@@ -40,20 +41,24 @@ class Home extends React.Component {
   }
 }
 
-function mapStateToProps({ authedUser, users, questions }) {
-  const answeredIds = Object.keys(users[authedUser].answers);
-  const answered = Object.values(questions)
-    .filter(question => !answeredIds.includes(question.id))
-    .sort((a, b) => b.timestamp - a.timestamp);
-  const unanswered = Object.values(questions)
-    .filter(question => answeredIds.includes(question.id))
-    .sort((a, b) => b.timestamp - a.timestamp);
+const getAnsweredAndUnansweredQuestions=(authedUser,questions)=>{
+  const unAnsweredQuestions = Object.values(questions).filter((question) =>
+  !question.optionOne.votes.includes(authedUser) && !question.optionTwo.votes.includes(authedUser))
+
+const answeredQuestions = Object.values(questions).filter((question) =>
+  question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser))
+
+  const answeredQuestionId = Object.values(answeredQuestions).sort((a, b) => b.timestamp - a.timestamp).map((question) => question.id)
+  const unAnsweredQuestionId= Object.values(unAnsweredQuestions)
+  .sort((a, b) => b.timestamp - a.timestamp).map((question) => question.id)
 
   return {
-    userQuestionData: {
-      answered,
-      unanswered
-    }
-  };
+    answeredQuestionId,
+    unAnsweredQuestionId
+  }
+
 }
+
+const mapStateToProps=({ authedUser, questions })=> getAnsweredAndUnansweredQuestions(authedUser,questions)
+
 export default connect(mapStateToProps)(Home);

@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 
 class Question extends React.Component {
   state = {
-    // validSubmit: false,
-    // isLoading: false,
     option1: '',
     option2: ''
   };
@@ -19,7 +17,6 @@ class Question extends React.Component {
     const { option1, option2 } = this.state;
 
     new Promise((res, rej) => {
-      // this.setState({ isLoading: true });
       handleSaveQuestion(option1, option2, authedUser);
       setTimeout(() => res('success'), 1000);
     }).then(() => {
@@ -27,7 +24,6 @@ class Question extends React.Component {
         option1: '',
         option2: ''
       });
-      // this.setState({ validSubmit: true });
       this.props.history.push('/');
     });
   };

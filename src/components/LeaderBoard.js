@@ -50,9 +50,7 @@ function mapStateToProps({ users }) {
         questionCount: user.questions.length,
         total: Object.values(user.answers).length + user.questions.length
       }))
-      .sort((a, b) => a.total - b.total)
-      .reverse()
-      .slice(0, 3);
+      .sort((a, b) => b.total - a.total)
     return {
       leaderboardData
     };

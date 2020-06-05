@@ -30,12 +30,9 @@ class Card extends React.Component {
                   question.optionOne.text.indexOf(" ")
                 )}
               </p>
-              {type==='answered'?(<Link to={`/questions/${question.id}`}>
-              <button type="button" className="btn btn-success">View Poll</button>
-              </Link>):(<Link to={`/questions/${question.id}`}>
-              <button type="button" className="btn btn-success">View Result</button>
-              </Link>)}
-              
+              <Link to={`/questions/${question.id}`}>
+              <button type="button" className="btn btn-success">{type==='answered'?"View Poll":"View Result"}</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -44,13 +41,12 @@ class Card extends React.Component {
   }
 }
 function mapStateToProps(
-  { users, questions, authedUser },
-  { match, question_id }
+  { users, questions },
+  { question_id }
 ) {
-  let question;
-  let author;
-  question = questions[question_id];
-  author = users[question.author];
+ 
+  const question = questions[question_id];
+  const author = users[question.author];
 
   return {
     author,

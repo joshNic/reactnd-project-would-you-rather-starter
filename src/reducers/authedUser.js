@@ -1,8 +1,11 @@
 import { SET_AUTHED_USER } from '../actions/authedUser';
 
 export default function authUser(state = null, action) {
-  if (action.type === SET_AUTHED_USER) {
-    return action.id;
+  switch (action.type) {
+    case SET_AUTHED_USER:
+      const {id} = action
+      return id;
+    default:
+      return state;
   }
-  return state;
 }
